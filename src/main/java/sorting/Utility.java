@@ -18,12 +18,12 @@ public class Utility {
         a[j] = value;
     }
 
-    public static long arrayAverage(long[] a) {
+    public static double arrayAverage(long[] a, int n) {
         long total = 0;
         for (long x : a) {
             total += x;
         }
-        return total;
+        return total/n;
     }
 
 }
