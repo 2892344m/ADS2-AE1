@@ -44,15 +44,15 @@ public class QuickSort {
 
     public static void sortCutOff(int[] a, int p, int r, int k) {
         kSort(a, p, r, k);
-        InsertionSort.sort(a);
+        InsertionSort.sort(a, p, r);
     }
 
     public static void sort3Way(int[] a, int p, int r) {
         if (p < r) {
             ik = 0; jk = 0;
             threeWayPartition(a, p, r);
-            sort(a, p, ik);
-            sort(a, jk, r);
+            sort3Way(a, p, ik);
+            sort3Way(a, jk, r);
         }
     }
 

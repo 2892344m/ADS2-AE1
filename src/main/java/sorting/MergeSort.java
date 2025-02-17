@@ -43,12 +43,12 @@ public class MergeSort {
 
     public static void insertionSort(int[] a, int p, int r, int n) {
         if (r <= p + n - 1) {
-            InsertionSort.sort(a);
+            InsertionSort.sort(a, p, r);
             return;
         }
         int q = p + (r-p) / 2;
-        sort(a, p, q);
-        sort(a, q+1, r);
+        insertionSort(a, p, q, n);
+        insertionSort(a, q+1, r, n);
         merge(a, p, q, r);
     }
 

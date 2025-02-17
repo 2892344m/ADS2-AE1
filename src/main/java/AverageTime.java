@@ -16,7 +16,7 @@ public class AverageTime {
             long start = System.nanoTime();
             long cutoff = System.currentTimeMillis() + 60 * 1000;
             while (System.currentTimeMillis() < cutoff) {
-                InsertionSort.sort(data);
+                InsertionSort.sort(data, 0, data.length);
                 break;
             }
             long duration = System.nanoTime() - start;
@@ -24,25 +24,6 @@ public class AverageTime {
         }
         double average = Utility.arrayAverage(times, n);
         System.out.println("Insertion Sort Average: " + average/1_000_000.0 + " milliseconds");
-        System.out.println(Arrays.toString(times));
-    }
-
-    public static void insertionMillisAverage(String filename, int n) throws FileNotFoundException {
-        long[] times = new long[n];
-        for (int i = 0; i < n; i++) {
-            int[] data = ReadArrays.readArray(filename);
-            long start = System.currentTimeMillis();
-            long cutoff = System.currentTimeMillis() + 60 * 1000;
-            while (System.currentTimeMillis() < cutoff) {
-                InsertionSort.sort(data);
-                break;
-            }
-            long duration = System.currentTimeMillis() - start;
-            times[i] = duration;
-        }
-        double average = Utility.arrayAverage(times, n);
-        System.out.println("Insertion Sort Average: " + average + " milliseconds");
-        System.out.println(Arrays.toString(times));
     }
 
     public static void selectionAverage(String filename, int n) throws FileNotFoundException {
@@ -100,7 +81,7 @@ public class AverageTime {
             long start = System.nanoTime();
             long cutoff = System.currentTimeMillis() + 60 * 1000;
             while (System.currentTimeMillis() < cutoff) {
-                MergeSort.insertionSort(data, 0, data.length-1, 100);break;
+                MergeSort.insertionSort(data, 0, data.length-1, 10);break;
             }
             long duration = System.nanoTime() - start;
             times[i] = duration;
@@ -164,7 +145,7 @@ public class AverageTime {
             long start = System.nanoTime();
             long cutoff = System.currentTimeMillis() + 60 * 1000;
             while (System.currentTimeMillis() < cutoff) {
-                QuickSort.sortCutOff(data, 0, data.length-1, 100);break;
+                QuickSort.sortCutOff(data, 0, data.length-1, 10);break;
             }
             long duration = System.nanoTime() - start;
             times[i] = duration;

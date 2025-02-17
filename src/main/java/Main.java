@@ -10,14 +10,13 @@ public class Main {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        String f = "src/main/java/files/int500k.txt";
+        String f = "src/main/java/files/intBig.txt";
         int n = 10;
 
         testSortsWork();
 
-        AverageTime.insertionAverage(f, n);
-        AverageTime.insertionMillisAverage(f, n);
-        AverageTime.selectionAverage(f, n);
+        // AverageTime.insertionAverage(f, n);
+        // AverageTime.selectionAverage(f, n);
         AverageTime.shellAverage(f, n);
         AverageTime.mergeAverage(f, n);
         AverageTime.bottomUpMergeAverage(f, n);
@@ -32,7 +31,7 @@ public class Main {
         String f = "src/main/java/files/int10.txt";
 
         int[] d = ReadArrays.readArray(f);
-        InsertionSort.sort(d);
+        InsertionSort.sort(d, 0, d.length);
         System.out.println("Insertion Sort: " +Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
