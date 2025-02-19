@@ -1,6 +1,7 @@
 package sorting;
 
 public class InsertionSort {
+
     public static void sort(int a[], int l , int r) {
         for (int j = l; j < r; j++) {
             int key = a[j];
@@ -11,5 +12,5 @@ public class InsertionSort {
             }
             a[i+1] = key;
         }
-    } 
+    }
 }

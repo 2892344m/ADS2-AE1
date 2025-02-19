@@ -1,33 +1,32 @@
 import java.io.FileNotFoundException;
+import sorting.BottomUpMergeSort;
+import sorting.CutOffQuickSort;
 import sorting.InsertionSort;
+import sorting.MedianOfThreeQuickSort;
+import sorting.MergeInsertionSort;
 import sorting.MergeSort;
+import sorting.MinHeap;
 import sorting.QuickSort;
 import sorting.SelectionSort;
 import sorting.ShellSort;
+import sorting.ThreeWayQuickSort;
 import sorting.Utility;
 
 public class Main {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        String f = "src/main/java/files/intBig.txt";
-        int n = 10;
-
         testSortsWork();
+        // calculateAverageTimes();
+        // findKLargest();
 
-        // AverageTime.insertionAverage(f, n);
-        // AverageTime.selectionAverage(f, n);
-        AverageTime.shellAverage(f, n);
-        AverageTime.mergeAverage(f, n);
-        AverageTime.bottomUpMergeAverage(f, n);
-        AverageTime.mergeInsertionAverage(f, n);
-        AverageTime.quickAverage(f, n);
-        AverageTime.medianOf3Average(f, n);
-        AverageTime.sort3WayAverage(f, n);
-        AverageTime.cutOffAverage(f, n);
+        String f ="src/main/java/files/intBig.txt";
+
+        AverageTime.insertionAverage(f, 10);
+        System.out.println("Done");
     }
 
-    public static void testSortsWork() throws FileNotFoundException {   
+    private static void testSortsWork() throws FileNotFoundException {   
         String f = "src/main/java/files/int10.txt";
 
         int[] d = ReadArrays.readArray(f);
@@ -47,11 +46,11 @@ public class Main {
         System.out.println("Merge Sort: " + Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
-        MergeSort.insertionSort(d, 0, d.length-1, 100);
+        MergeInsertionSort.sort(d, 0, d.length-1, 100);
         System.out.println("Merge-Insertion Sort: " + Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
-        MergeSort.bottomUpMergeSort(d, 0, d.length-1);
+        BottomUpMergeSort.sort(d, 0, d.length-1);
         System.out.println("Bottom-Up Merge Sort: " + Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
@@ -59,18 +58,39 @@ public class Main {
         System.out.println("Quick Sort: " + Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
-        QuickSort.sortCutOff(d, 0, d.length-1, 100);
+        CutOffQuickSort.sort(d, 0, d.length-1, 100);
         System.out.println("Quick-Insertion Sort: " + Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
-        QuickSort.sort3Way(d, 0, d.length-1);
+        ThreeWayQuickSort.sort(d, 0, d.length-1);
         System.out.println("3 Way Sort: " + Utility.isSorted(d));
 
         d = ReadArrays.readArray(f);
-        QuickSort.sortMedian3(d, 0, d.length-1);
+        MedianOfThreeQuickSort.sort(d, 0, d.length-1);
         System.out.println("Median of 3 Sort: " + Utility.isSorted(d));
 
         System.out.println("\n\n\n");
     }
 
+    private static void calculateAverageTimes() throws FileNotFoundException {
+        String f = "src/main/java/files/int100.txt";
+        int n = 10;
+        AverageTime.insertionAverage(f, n);
+        AverageTime.selectionAverage(f, n);
+        AverageTime.shellAverage(f, n);
+        AverageTime.mergeAverage(f, n);
+        AverageTime.bottomUpMergeAverage(f, n);
+        AverageTime.mergeInsertionAverage(f, n);
+        AverageTime.quickAverage(f, n);
+        AverageTime.medianOf3Average(f, n);
+        AverageTime.sort3WayAverage(f, n);
+        AverageTime.cutOffAverage(f, n);
+    }
+
+    private static void findKLargest() throws FileNotFoundException {
+        String f = "src/main/java/files/views.txt";
+        int k = 50;
+        int[] data = ReadArrays.readArray(f);
+        System.out.println(MinHeap.findKLargest(data, k));
+    }
 }
