@@ -17,13 +17,9 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         testSortsWork();
-        // calculateAverageTimes();
-        // findKLargest();
-
-        String f ="src/main/java/files/intBig.txt";
-
-        AverageTime.insertionAverage(f, 10);
-        System.out.println("Done");
+        calculateAverageTimes();
+        findKLargest();
+        System.exit(0);
     }
 
     private static void testSortsWork() throws FileNotFoundException {   
@@ -73,7 +69,7 @@ public class Main {
     }
 
     private static void calculateAverageTimes() throws FileNotFoundException {
-        String f = "src/main/java/files/int100.txt";
+        String f = "src/main/java/files/int50.txt";
         int n = 10;
         AverageTime.insertionAverage(f, n);
         AverageTime.selectionAverage(f, n);

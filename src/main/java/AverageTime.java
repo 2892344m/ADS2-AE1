@@ -1,9 +1,10 @@
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import sorting.BottomUpMergeSort;
 import sorting.CutOffQuickSort;
 import sorting.InsertionSort;
@@ -18,13 +19,16 @@ import sorting.Utility;
 
 public class AverageTime {
 
+    static final int CUTOFF_SECONDS = 30;
+
     public static void insertionAverage(String filename, int n) throws FileNotFoundException {
         
         long[] times = new long[n];
         int[] data = ReadArrays.readArray(filename);
         int dataLength = data.length;
 
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
         Future future = executor.submit(() -> {
             for (int i = 0; i < n; i++) {
                 int[] workingData = Arrays.copyOf(data, dataLength);
@@ -37,27 +41,38 @@ public class AverageTime {
             double average = Utility.arrayAverage(times, n);
             System.out.println("Insertion Sort Average: " + average/1_000_000.0 + " milliseconds");
         });
-        
-        Runnable cancelTask = () -> future.cancel(true);
 
-        executor.schedule(cancelTask, 1, TimeUnit.SECONDS);
-        executor.shutdown();
+            System.out.println(future.get(CUTOFF_SECONDS, TimeUnit.SECONDS));
+        } catch (TimeoutException e) {System.out.println("Error. Took too long.");}
+        catch (Exception e) { e.printStackTrace();}
+        finally {executor.shutdown();}
+        
     }
 
     public static void selectionAverage(String filename, int n) throws FileNotFoundException {
         long[] times = new long[n];
-        for (int i = 0; i < n; i++) {
-            int[] data = ReadArrays.readArray(filename);
-            long start = System.nanoTime();
-            long cutoff = System.currentTimeMillis() + 60 * 1000;
-            while (System.currentTimeMillis() < cutoff) {
-                SelectionSort.sort(data);break;
+        int[] data = ReadArrays.readArray(filename);
+        int dataLength = data.length;
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+        Future future = executor.submit(() -> {
+            for (int i = 0; i < n; i++) {
+                int[] workingData = Arrays.copyOf(data, dataLength);
+                long start = System.nanoTime();
+                SelectionSort.sort(workingData);
+                
+                long duration = System.nanoTime() - start;
+                times[i] = duration;
             }
-            long duration = System.nanoTime() - start;
-            times[i] = duration;
-        }
-        double average = Utility.arrayAverage(times, n);
-        System.out.println("Selection Sort Average: " + average/1_000_000.0 + " milliseconds");
+            double average = Utility.arrayAverage(times, n);
+            System.out.println("Selection Sort Average: " + average/1_000_000.0 + " milliseconds");
+        });
+
+            System.out.println(future.get(CUTOFF_SECONDS, TimeUnit.SECONDS));
+        } catch (TimeoutException e) {System.out.println("Error. Took too long.");}
+        catch (Exception e) { e.printStackTrace();}
+        finally {executor.shutdown();}
     }
 
     public static void shellAverage(String filename, int n) throws FileNotFoundException {
@@ -99,7 +114,7 @@ public class AverageTime {
             long start = System.nanoTime();
             long cutoff = System.currentTimeMillis() + 60 * 1000;
             while (System.currentTimeMillis() < cutoff) {
-                MergeInsertionSort.sort(data, 0, data.length-1, 10);break;
+                MergeInsertionSort.sort(data, 0, data.length-1, 100);break;
             }
             long duration = System.nanoTime() - start;
             times[i] = duration;
