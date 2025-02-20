@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import sorting.BottomUpMergeSort;
 import sorting.CutOffQuickSort;
 import sorting.InsertionSort;
@@ -18,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         testSortsWork();
         calculateAverageTimes();
-        // findKLargest();
+        findKLargest();
         System.exit(0);
     }
 
@@ -85,7 +87,7 @@ public class Main {
 
     private static void findKLargest() throws FileNotFoundException {
         String f = "src/main/java/files/views.txt";
-        int k = 50;
+        int k = 20;
         int[] data = ReadArrays.readArray(f);
         System.out.println(MinHeap.findKLargest(data, k));
     }

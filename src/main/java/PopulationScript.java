@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public class PopulationScript {
 
-    private static final int size = 1_000_000;
+    private static final int SIZE = 1_000_000;
 
     private static int[] generateArray() {
-        int[] a = new int[size];
+        int[] a = new int[SIZE];
         Random random = new Random();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < SIZE; i++) {
             a[i] = random.nextInt(Integer.MAX_VALUE-0) + 0;
         }
         return a;

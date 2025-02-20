@@ -25,5 +25,4 @@ public class Utility {
         }
         return total/n;
     }
-
 }

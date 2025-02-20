@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+//Sourced from https://www.geeksforgeeks.org/k-largestor-smallest-elements-in-an-array/
+//Second method, using priority queue
 public class MinHeap {
     
     public static ArrayList<Integer> findKLargest(int[] a, int k) {
